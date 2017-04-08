@@ -17,11 +17,19 @@ class OrderedLetterShould extends Specification {
     ] as Set
   }
 
-  def "position itself on top and bottom if two letters"() {
+  def "position itself on top and bottom if first of two letters"() {
     expect:
     new OrderedLetter(Letter.A, 0).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)) == [
             new PositionedLetter(Coordinates.ofYX(0,1), Letter.A),
             new PositionedLetter(Coordinates.ofYX(2,1), Letter.A)
+    ] as Set
+  }
+
+  def "position itself left and right if second of two letters"() {
+    expect:
+    new OrderedLetter(Letter.B, 1).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)) == [
+            new PositionedLetter(Coordinates.ofYX(1,0), Letter.B),
+            new PositionedLetter(Coordinates.ofYX(1,2), Letter.B)
     ] as Set
   }
 }
