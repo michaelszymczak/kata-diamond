@@ -2,14 +2,14 @@ package com.michaelszymczak.diamond
 
 import spock.lang.Specification
 
-class DiamondShould extends Specification {
+class DiamondAcceptanceTest extends Specification {
 
-  def "contain the provided letter"() {
+  def "should contain the provided letter"() {
     expect:
     diamondWith("A") == shapeOf("A")
   }
 
-  def "build a diamond shape containing the preceding and the provided letter"() {
+  def "should build a diamond shape containing the preceding and the provided letter"() {
     expect:
     diamondWith("B") == shapeOf("""
  A -
