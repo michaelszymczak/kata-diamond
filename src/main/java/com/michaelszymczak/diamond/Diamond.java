@@ -6,15 +6,21 @@ import static com.michaelszymczak.diamond.Letter.A;
 import static com.michaelszymczak.diamond.Letter.B;
 
 public class Diamond {
-  private final char lastLetter;
+  private final Letter lastLetter;
 
   public Diamond(char lastLetter) {
-    this.lastLetter = lastLetter;
+    this.lastLetter = new Letter(lastLetter);
   }
+//
+//  Collection<PositionedLetter> positioned(Letter highestLetter)
+//  {
+//    return null;
+//  }
 
   @Override
   public String toString() {
-    return lastLetter == 'A' ? new Board(Arrays.asList(new Board.Cell(0,0, A))).toString()
-            : new Board(Arrays.asList(new Board.Cell(0,1,A), new Board.Cell(1,0, B), new Board.Cell(1,2,B), new Board.Cell(2,1,A))).toString();
+    return Letter.A.equals(lastLetter) ? new Board(Arrays.asList(new PositionedLetter(Coordinates.ofYX(0,0), A))).toString()
+            : new Board(Arrays.asList(
+            new PositionedLetter(Coordinates.ofYX(0,1),A), new PositionedLetter(Coordinates.ofYX(1,0), B), new PositionedLetter(Coordinates.ofYX(1,2),B), new PositionedLetter(Coordinates.ofYX(2,1),A))).toString();
   }
 }
