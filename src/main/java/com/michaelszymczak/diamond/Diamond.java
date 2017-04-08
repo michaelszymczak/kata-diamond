@@ -9,6 +9,6 @@ public class Diamond {
 
   @Override
   public String toString() {
-    return lastLetter == 'A' ? "A" : " A\nB B\n A";
+    return lastLetter == 'A' ? "A" : " A \nB B\n A ";
   }
 }

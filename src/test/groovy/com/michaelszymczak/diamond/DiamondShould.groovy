@@ -12,9 +12,9 @@ class DiamondShould extends Specification {
   def "build a diamond shape containing the preceding and the provided letter"() {
     expect:
     diamondWith("B") == shapeOf("""
- A
-B B
- A
+ A -
+B B-
+ A -
 """)
   }
 
@@ -23,6 +23,33 @@ B B
   }
 
   private static String shapeOf(String shape) {
-    shape.replaceAll("^\n", "").replaceAll("\n\$", "")
+    shape.replaceAll("^\n", "").replaceAll("\n\$", "").replaceAll('-', "")
   }
+
+//  def A = """
+//A
+//"""
+//  def B = """
+// A
+//B B
+// A
+//"""
+//
+//  def C = """
+//  A
+// B B
+//C   C
+// B B
+//  A
+//"""
+//  def D = """
+//   A
+//  B B
+// C   C
+//D     D
+// C   C
+//  B B
+//   A
+//"""
 }
+
