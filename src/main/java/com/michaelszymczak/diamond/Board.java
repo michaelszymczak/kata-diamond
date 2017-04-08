@@ -7,15 +7,15 @@ import java.util.stream.Collectors;
 public class Board {
 
   private final Cell[][] board;
-  private final String emptyCellSymbol;
+  private final Letter emptyCellLetter;
 
   public Board(Collection<Cell> cells) {
-    this(" ", cells);
+    this(new Letter(" "), cells);
   }
 
-  public Board(String emptyCellSymbol, Collection<Cell> cells) {
-    this.emptyCellSymbol = emptyCellSymbol;
-    board = boardWith(cells);
+  public Board(Letter emptyCellLetter, Collection<Cell> cells) {
+    this.emptyCellLetter = emptyCellLetter;
+    this.board = boardWith(cells);
   }
 
 
@@ -39,7 +39,7 @@ public class Board {
 
   private String rendered(Cell[] row) {
     return Arrays.stream(row)
-            .map(cell -> (cell != null) ? cell.symbol() : emptyCellSymbol)
+            .map(cell -> (cell != null) ? cell.letterAsString() : emptyCellLetter.toString())
             .collect(Collectors.joining());
   }
 
@@ -47,12 +47,12 @@ public class Board {
   {
     private final int x;
     private final int y;
-    private final char symbol;
+    private final Letter letter;
 
-    public Cell(int y, int x, char symbol) {
+    public Cell(int y, int x, Letter letter) {
       this.x = x;
       this.y = y;
-      this.symbol = symbol;
+      this.letter = letter;
     }
 
     public int maxXorY()
@@ -60,9 +60,9 @@ public class Board {
       return x > y ? x : y;
     }
 
-    public String symbol()
+    public String letterAsString()
     {
-      return String.valueOf(symbol);
+      return letter.toString();
     }
   }
 }
