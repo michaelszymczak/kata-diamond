@@ -42,4 +42,25 @@ class OrderedLetterShould extends Specification {
             new PositionedLetter(Coordinates.ofYX(3,3), Letter.B)
     ] as Set
   }
+
+  def "form diamond shape"() {
+    given:
+    def highestLetter = new OrderedLetter(Letter.C, 2)
+
+    expect:
+    new OrderedLetter(Letter.A, 0).positionedAgainstHighest(highestLetter) == [
+            new PositionedLetter(Coordinates.ofYX(0,2), Letter.A),
+            new PositionedLetter(Coordinates.ofYX(4,2), Letter.A)
+    ] as Set
+    new OrderedLetter(Letter.B, 1).positionedAgainstHighest(highestLetter) == [
+            new PositionedLetter(Coordinates.ofYX(1,1), Letter.B),
+            new PositionedLetter(Coordinates.ofYX(1,3), Letter.B),
+            new PositionedLetter(Coordinates.ofYX(3,1), Letter.B),
+            new PositionedLetter(Coordinates.ofYX(3,3), Letter.B)
+    ] as Set
+    new OrderedLetter(Letter.C, 2).positionedAgainstHighest(highestLetter) == [
+            new PositionedLetter(Coordinates.ofYX(2,0), Letter.C),
+            new PositionedLetter(Coordinates.ofYX(2,4), Letter.C)
+    ] as Set
+  }
 }

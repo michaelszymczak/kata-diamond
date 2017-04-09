@@ -1,9 +1,8 @@
 package com.michaelszymczak.diamond;
 
-import java.util.Arrays;
+import com.google.common.collect.ImmutableSet;
 
-import static com.michaelszymczak.diamond.Letter.A;
-import static com.michaelszymczak.diamond.Letter.B;
+import java.util.Set;
 
 public class Diamond {
   private final Letter lastLetter;
@@ -11,16 +10,17 @@ public class Diamond {
   public Diamond(char lastLetter) {
     this.lastLetter = new Letter(lastLetter);
   }
-//
-//  Collection<PositionedLetter> positioned(Letter highestLetter)
-//  {
-//    return null;
-//  }
 
   @Override
   public String toString() {
-    return Letter.A.equals(lastLetter) ? new Board(Arrays.asList(new PositionedLetter(Coordinates.ofYX(0,0), A))).toString()
-            : new Board(Arrays.asList(
-            new PositionedLetter(Coordinates.ofYX(0,1),A), new PositionedLetter(Coordinates.ofYX(1,0), B), new PositionedLetter(Coordinates.ofYX(1,2),B), new PositionedLetter(Coordinates.ofYX(2,1),A))).toString();
+    return new Board(orderedLetters()).toString();
+  }
+
+  private Set<PositionedLetter> orderedLetters() {
+    return Letter.A.equals(lastLetter) ? new OrderedLetter(Letter.A, 0).positionedAgainstHighest(new OrderedLetter(Letter.A, 0)) :
+            new ImmutableSet.Builder<PositionedLetter>()
+                    .addAll(new OrderedLetter(Letter.A, 0).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)))
+                    .addAll(new OrderedLetter(Letter.B, 1).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)))
+                    .build();
   }
 }
