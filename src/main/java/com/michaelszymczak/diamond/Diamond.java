@@ -1,14 +1,17 @@
 package com.michaelszymczak.diamond;
 
-import com.google.common.collect.ImmutableSet;
-
 import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
+
 public class Diamond {
-  private final Letter lastLetter;
+
+  private final Alphabet alphabet;
+  private final OrderedLetter lastLetter;
 
   public Diamond(char lastLetter) {
-    this.lastLetter = new Letter(lastLetter);
+    this.alphabet = new Alphabet();
+    this.lastLetter = new OrderedLetter(new Letter(lastLetter), alphabet.positionOf(new Letter(lastLetter)));
   }
 
   @Override
@@ -17,10 +20,9 @@ public class Diamond {
   }
 
   private Set<PositionedLetter> orderedLetters() {
-    return Letter.A.equals(lastLetter) ? new OrderedLetter(Letter.A, 0).positionedAgainstHighest(new OrderedLetter(Letter.A, 0)) :
-            new ImmutableSet.Builder<PositionedLetter>()
-                    .addAll(new OrderedLetter(Letter.A, 0).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)))
-                    .addAll(new OrderedLetter(Letter.B, 1).positionedAgainstHighest(new OrderedLetter(Letter.B, 1)))
-                    .build();
+    return alphabet
+            .sequenceUpTo(lastLetter.getLetter()).stream()
+            .flatMap(orderedLetter -> orderedLetter.positionedAgainstHighest(lastLetter).stream())
+            .collect(toSet());
   }
 }

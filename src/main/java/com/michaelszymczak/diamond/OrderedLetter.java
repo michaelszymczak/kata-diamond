@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import java.util.Set;
 
 public class OrderedLetter {
+
   private final Letter letter;
   private final int ordinalNumber;
 
@@ -28,5 +29,32 @@ public class OrderedLetter {
             new PositionedLetter(Coordinates.ofYX(highestOrderedLetter.getOrdinalNumber() * 2 - ordinalNumber,highestOrderedLetter.getOrdinalNumber() - ordinalNumber), letter),
             new PositionedLetter(Coordinates.ofYX(highestOrderedLetter.getOrdinalNumber() * 2 - ordinalNumber,highestOrderedLetter.getOrdinalNumber() + ordinalNumber), letter)
     );
+  }
+
+  @Override
+  public String toString() {
+    return "OrderedLetter{" +
+            "letter=" + letter +
+            ", ordinalNumber=" + ordinalNumber +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    OrderedLetter that = (OrderedLetter) o;
+
+    if (ordinalNumber != that.ordinalNumber) return false;
+    return letter != null ? letter.equals(that.letter) : that.letter == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = letter != null ? letter.hashCode() : 0;
+    result = 31 * result + ordinalNumber;
+    return result;
   }
 }
