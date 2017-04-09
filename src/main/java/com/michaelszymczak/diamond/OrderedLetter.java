@@ -23,8 +23,10 @@ public class OrderedLetter {
 
   public Set<PositionedLetter> positionedAgainstHighest(OrderedLetter highestOrderedLetter) {
     return ImmutableSet.of(
+            new PositionedLetter(Coordinates.ofYX(ordinalNumber,highestOrderedLetter.getOrdinalNumber() - ordinalNumber), letter),
             new PositionedLetter(Coordinates.ofYX(ordinalNumber,highestOrderedLetter.getOrdinalNumber() + ordinalNumber), letter),
-            new PositionedLetter(Coordinates.ofYX(highestOrderedLetter.getOrdinalNumber() * 2 - ordinalNumber,highestOrderedLetter.getOrdinalNumber() - ordinalNumber), letter)
+            new PositionedLetter(Coordinates.ofYX(highestOrderedLetter.getOrdinalNumber() * 2 - ordinalNumber,highestOrderedLetter.getOrdinalNumber() - ordinalNumber), letter),
+            new PositionedLetter(Coordinates.ofYX(highestOrderedLetter.getOrdinalNumber() * 2 - ordinalNumber,highestOrderedLetter.getOrdinalNumber() + ordinalNumber), letter)
     );
   }
 }
